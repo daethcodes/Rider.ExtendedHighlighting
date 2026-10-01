@@ -17,6 +17,6 @@ pluginManagement {
     }
 }
 
-rootProject.name = "ReSharperPlugin.ExtendedHighlighting"
+rootProject.name = "ExtendedHighlighting"
 
 include(":protocol")

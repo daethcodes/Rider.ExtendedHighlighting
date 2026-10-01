@@ -2,7 +2,7 @@
     <PropertyGroup>
         <TargetFramework>net481</TargetFramework>
         <LangVersion>Latest</LangVersion>
-        <AssemblyName>ReSharperPlugin.ExtendedHighlighting</AssemblyName>
+        <AssemblyName>ExtendedHighlighting</AssemblyName>
         <RootNamespace>$(AssemblyName)</RootNamespace>
         <DefineConstants>$(DefineConstants);RIDER</DefineConstants>
         <IsPackable>false</IsPackable>

@@ -18,11 +18,10 @@ dependencies {
     )
 }
 
-val DotnetPluginId: String by rootProject
 val RiderPluginId: String by rootProject
 
 rdgen {
-    val csOutput = File(rootDir, "src/${DotnetPluginId}")
+    val csOutput = File(rootDir, "src/dotnet")
     val ktOutput = File(rootDir, "src/rider/main/kotlin/com/jetbrains/rider/plugins/${RiderPluginId.replace('.','/').lowercase()}")
 
     verbose = true
