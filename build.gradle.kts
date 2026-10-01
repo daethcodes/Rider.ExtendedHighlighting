@@ -141,7 +141,6 @@ dependencies {
         rider(ProductVersion) { useInstaller = false }
         jetbrainsRuntime()
 
-        // TODO: add plugins
         // bundledPlugin("uml")
         // bundledPlugin("com.jetbrains.ChooseRuntime:1.0.9")
     }
@@ -155,7 +154,6 @@ tasks.runIde {
 tasks.patchPluginXml {
     untilBuild.set(sinceBuild.map { "${it.substringBefore('.')}.*" })
 
-    // TODO: See also org.jetbrains.changelog: https://github.com/JetBrains/gradle-changelog-plugin
     val changelogText = file("${rootDir}/CHANGELOG.md").readText()
     val changelogMatches = Regex("(?s)(-.+?)(?=##|\$)").findAll(changelogText)
 
@@ -171,8 +169,6 @@ tasks.withType<PrepareSandboxTask>().configureEach {
     val dllFiles = listOf(
             "$outputFolder/${DotnetPluginId}.dll",
             "$outputFolder/${DotnetPluginId}.pdb",
-
-            // TODO: add additional assemblies
     )
 
     dllFiles.forEach({ f ->
