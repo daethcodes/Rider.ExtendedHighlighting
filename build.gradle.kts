@@ -167,7 +167,7 @@ tasks.patchPluginXml {
 tasks.withType<PrepareSandboxTask>().configureEach {
     dependsOn(compileDotNet)
 
-    val outputFolder = "${rootDir}/src/dotnet/${DotnetPluginId}/bin/${DotnetPluginId}.Rider/${BuildConfiguration}"
+    val outputFolder = "${rootDir}/src/${DotnetPluginId}/bin/${DotnetPluginId}.Rider/${BuildConfiguration}"
     val dllFiles = listOf(
             "$outputFolder/${DotnetPluginId}.dll",
             "$outputFolder/${DotnetPluginId}.pdb",
