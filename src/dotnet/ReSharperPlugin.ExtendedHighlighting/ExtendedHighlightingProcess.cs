@@ -26,6 +26,7 @@ public class ExtendedHighlightingProcess(
             [CSharpTokenType.DOUBLE_QUEST_EQ] = range => new DoubleQuestEqTokenHighlighting(range),
             [CSharpTokenType.LAMBDA_ARROW] = range => new LambdaArrowTokenHighlighting(range),
             [CSharpTokenType.EXCL] = range => new ExclArrowTokenHighlighting(range),
+            [CSharpTokenType.COLON] = range => new ColonTokenHighlighting(range),
         }.ToFrozenDictionary();
 
     public override void VisitNode(ITreeNode element, IHighlightingConsumer consumer)

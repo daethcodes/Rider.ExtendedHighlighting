@@ -1,15 +1,25 @@
-import com.jetbrains.plugin.structure.base.utils.isFile
-import groovy.ant.FileNameFinder
 import org.apache.tools.ant.taskdefs.condition.Os
+import org.gradle.process.ExecOperations
 import org.jetbrains.intellij.platform.gradle.Constants
+import org.jetbrains.intellij.platform.gradle.tasks.PrepareSandboxTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.ByteArrayOutputStream
+import java.nio.file.Files
+import javax.inject.Inject
 
 plugins {
     id("java")
     alias(libs.plugins.kotlinJvm)
-    id("org.jetbrains.intellij.platform") version "2.10.4"     // See https://github.com/JetBrains/intellij-platform-gradle-plugin/releases
-    id("me.filippov.gradle.jvm.wrapper") version "0.14.0"
+    id("org.jetbrains.intellij.platform") version "2.19.0"     // See https://github.com/JetBrains/intellij-platform-gradle-plugin/releases
+    id("me.filippov.gradle.jvm.wrapper") version "0.16.0"
 }
+
+interface BuildServices {
+    @get:Inject
+    val execOperations: ExecOperations
+}
+
+val execOperations = objects.newInstance<BuildServices>().execOperations
 
 val isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
 extra["isWindows"] = isWindows
@@ -35,9 +45,10 @@ repositories {
 }
 
 tasks.wrapper {
-    gradleVersion = "8.8"
+    gradleVersion = "9.8.0"
     distributionType = Wrapper.DistributionType.ALL
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+    distributionSha256Sum = "46ac66d47f30f3dacfdf306e0b714a91a34fb94a22ba0a744b280933f47bc0cf"
 }
 
 version = extra["PluginVersion"] as String
@@ -54,8 +65,13 @@ sourceSets {
     }
 }
 
-tasks.compileKotlin {
-    kotlinOptions { jvmTarget = "17" }
+kotlin {
+    compilerOptions { jvmTarget.set(JvmTarget.JVM_21) }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 val setBuildTool by tasks.registering {
@@ -65,7 +81,7 @@ val setBuildTool by tasks.registering {
 
         if (isWindows) {
             val stdout = ByteArrayOutputStream()
-            exec {
+            execOperations.exec {
                 executable("${rootDir}\\tools\\vswhere.exe")
                 args("-latest", "-property", "installationPath", "-products", "*")
                 standardOutput = stdout
@@ -74,8 +90,8 @@ val setBuildTool by tasks.registering {
 
             val directory = stdout.toString().trim()
             if (directory.isNotEmpty()) {
-                val files = FileNameFinder().getFileNames("${directory}\\MSBuild", "**/MSBuild.exe")
-                extra["executable"] = files.get(0)
+                val files = fileTree("${directory}/MSBuild") { include("**/MSBuild.exe") }
+                extra["executable"] = files.files.first().absolutePath
                 args = mutableListOf("/v:minimal")
             }
         }
@@ -93,7 +109,7 @@ val compileDotNet by tasks.registering {
         val executable: String by setBuildTool.get().extra
         val arguments = (setBuildTool.get().extra["args"] as List<String>).toMutableList()
         arguments.add("/t:Restore;Rebuild")
-        exec {
+        execOperations.exec {
             executable(executable)
             args(arguments)
             workingDir(rootDir)
@@ -103,7 +119,7 @@ val compileDotNet by tasks.registering {
 
 val testDotNet by tasks.registering {
     doLast {
-        exec {
+        execOperations.exec {
             executable("dotnet")
             args("test","${DotnetSolution}","--logger","GitHubActions")
             workingDir(rootDir)
@@ -131,7 +147,7 @@ tasks.buildPlugin {
         arguments.add("/p:PackageOutputPath=${rootDir}/output")
         arguments.add("/p:PackageReleaseNotes=${changeNotes}")
         arguments.add("/p:PackageVersion=${version}")
-        exec {
+        execOperations.exec {
             executable(executable)
             args(arguments)
             workingDir(rootDir)
@@ -141,7 +157,7 @@ tasks.buildPlugin {
 
 dependencies {
     intellijPlatform {
-        rider(ProductVersion, useInstaller = false)
+        rider(ProductVersion) { useInstaller = false }
         jetbrainsRuntime()
 
         // TODO: add plugins
@@ -156,6 +172,8 @@ tasks.runIde {
 }
 
 tasks.patchPluginXml {
+    untilBuild.set(sinceBuild.map { "${it.substringBefore('.')}.*" })
+
     // TODO: See also org.jetbrains.changelog: https://github.com/JetBrains/gradle-changelog-plugin
     val changelogText = file("${rootDir}/CHANGELOG.md").readText()
     val changelogMatches = Regex("(?s)(-.+?)(?=##|\$)").findAll(changelogText)
@@ -165,7 +183,7 @@ tasks.patchPluginXml {
     }.take(1).joinToString())
 }
 
-tasks.prepareSandbox {
+tasks.withType<PrepareSandboxTask>().configureEach {
     dependsOn(compileDotNet)
 
     val outputFolder = "${rootDir}/src/dotnet/${DotnetPluginId}/bin/${DotnetPluginId}.Rider/${BuildConfiguration}"
@@ -195,7 +213,7 @@ tasks.publishPlugin {
     token.set("${PublishToken}")
 
     doLast {
-        exec {
+        execOperations.exec {
             executable("dotnet")
             args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key","${PublishToken}","--source","https://plugins.jetbrains.com")
             workingDir(rootDir)
@@ -211,7 +229,7 @@ val riderModel: Configuration by configurations.creating {
 artifacts {
     add(riderModel.name, provider {
         intellijPlatform.platformPath.resolve("lib/rd/rider-model.jar").also {
-            check(it.isFile) {
+            check(Files.isRegularFile(it)) {
                 "rider-model.jar is not found at $riderModel"
             }
         }
