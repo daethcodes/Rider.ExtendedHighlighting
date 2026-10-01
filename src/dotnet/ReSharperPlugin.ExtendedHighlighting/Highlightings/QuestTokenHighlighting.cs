@@ -1,5 +1,6 @@
 using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Feature.Services.Daemon;
+using JetBrains.ReSharper.Feature.Services.Daemon.Attributes;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.TextControl.DocumentMarkup;
 
@@ -20,7 +21,6 @@ namespace ReSharperPlugin.ExtendedHighlighting.QuestOperator;
     nameof(QuestTokenHighlighting),
     GroupId = Constants.GroupId,
     EffectType = EffectType.TEXT,
-    ForegroundColor = Constants.DefaultColor,
-    DarkForegroundColor = Constants.DefaultColor,
+    FallbackAttributeId = DefaultLanguageAttributeIds.OPERATOR_SIGN,
     Layer = Constants.Layer)]
 public class QuestTokenHighlighting(DocumentRange range) : ExtendedHighlightingBase(range);

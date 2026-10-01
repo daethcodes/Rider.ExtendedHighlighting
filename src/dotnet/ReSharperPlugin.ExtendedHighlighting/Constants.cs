@@ -8,7 +8,5 @@ public static class Constants
 
     public const string PresentableName = "Extended Highlighting";
 
-    public const string DefaultColor = "FFFFFF";
-
     public const HighlighterLayer Layer = HighlighterLayer.SYNTAX + 1;
 }
