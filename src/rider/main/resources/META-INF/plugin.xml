@@ -1,15 +1,28 @@
 <idea-plugin require-restart="true">
-  <id>com.jetbrains.rider.plugins.extendedhighlighting</id>
-  <name>ExtendedHighlighting</name>
-  <version>_PLACEHOLDER_</version>
-  <vendor url="https://project-url">Author</vendor>
-  <idea-version since-build="_PLACEHOLDER_" until-build="_PLACEHOLDER_" />
-  <depends>com.intellij.modules.rider</depends>
+    <id>daethcodes.extendedhighlighting</id>
+    <name>ExtendedHighlighting</name>
+    <version>_PLACEHOLDER_</version>
+    <vendor>daethcodes</vendor>
+    <idea-version since-build="_PLACEHOLDER_" until-build="_PLACEHOLDER_"/>
+    <depends>com.intellij.modules.rider</depends>
 
-  <description>
-<![CDATA[
-<p>Sample description</p>
-]]>
-  </description>
+    <description><![CDATA[
+Adds syntax highlighting for C# operators that Rider does not support by default.
+
+These are treated as symbols without any real semantics i.e. it will override all uses of the symbol
+so overriding <code>!</code> will apply to all.
+
+All highlightings default to the colour for operators from the user's current settings, but they can be individually set.
+
+The list of configurable symbols includes:
+<ul>
+  <li><code>?</code></li>
+  <li><code>??</code></li>
+  <li><code>??=</code></li>
+  <li><code>:</code></li>
+  <li><code>!</code></li>
+  <li><code>=></code></li>
+</ul>
+]]></description>
 
 </idea-plugin>
