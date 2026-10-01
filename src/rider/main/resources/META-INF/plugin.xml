@@ -10,7 +10,7 @@
 Adds syntax highlighting for C# operators that Rider does not support by default.
 
 These are treated as symbols without any real semantics i.e. it will override all uses of the symbol
-so overriding <code>!</code> will apply to all.
+so setting a highlighting for <code>!</code> will apply to all occurrences.
 
 All highlightings default to the colour for operators from the user's current settings, but they can be individually set.
 
