@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
+using ExtendedHighlighting.Highlightings;
 using JetBrains.Application.Settings;
 using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Daemon.CSharp.Stages;
@@ -11,9 +12,8 @@ using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Parsing;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl.DocumentMarkup;
-using ReSharperPlugin.ExtendedHighlighting.Highlightings;
 
-namespace ReSharperPlugin.ExtendedHighlighting;
+namespace ExtendedHighlighting;
 
 [RegisterHighlighterGroup(
     Constants.GroupId,

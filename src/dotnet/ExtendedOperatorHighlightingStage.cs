@@ -1,11 +1,11 @@
+using ExtendedHighlighting.Highlightings;
 using JetBrains.Application.Parts;
 using JetBrains.Application.Settings;
 using JetBrains.ReSharper.Feature.Services.CSharp.Daemon;
 using JetBrains.ReSharper.Feature.Services.Daemon;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
-using ReSharperPlugin.ExtendedHighlighting.Highlightings;
 
-namespace ReSharperPlugin.ExtendedHighlighting;
+namespace ExtendedHighlighting;
 
 [DaemonStage(
     Instantiation.DemandAnyThreadSafe,

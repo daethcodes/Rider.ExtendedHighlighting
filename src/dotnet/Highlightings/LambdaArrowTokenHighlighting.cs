@@ -4,7 +4,7 @@ using JetBrains.ReSharper.Feature.Services.Daemon.Attributes;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.TextControl.DocumentMarkup;
 
-namespace ReSharperPlugin.ExtendedHighlighting.Highlightings;
+namespace ExtendedHighlighting.Highlightings;
 
 [StaticSeverityHighlighting(
     Severity.INFO,

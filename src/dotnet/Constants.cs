@@ -1,7 +1,7 @@
+using ExtendedHighlighting.Highlightings;
 using JetBrains.TextControl.DocumentMarkup;
-using ReSharperPlugin.ExtendedHighlighting.Highlightings;
 
-namespace ReSharperPlugin.ExtendedHighlighting;
+namespace ExtendedHighlighting;
 
 public static class Constants
 {

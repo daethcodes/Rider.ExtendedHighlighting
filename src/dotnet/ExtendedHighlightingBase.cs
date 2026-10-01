@@ -1,7 +1,7 @@
 using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Feature.Services.Daemon;
 
-namespace ReSharperPlugin.ExtendedHighlighting;
+namespace ExtendedHighlighting;
 
 public abstract class ExtendedHighlightingBase(DocumentRange documentRange) : IHighlighting
 {

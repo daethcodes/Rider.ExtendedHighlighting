@@ -1,8 +1,8 @@
 using System;
+using ExtendedHighlighting.Highlightings;
 using JetBrains.TextControl.DocumentMarkup;
-using ReSharperPlugin.ExtendedHighlighting.Highlightings;
 
-namespace ReSharperPlugin.ExtendedHighlighting;
+namespace ExtendedHighlighting;
 
 public class ExtendedHighlightingNamesProvider : IRiderHighlighterNamesProvider
 {
