@@ -18,10 +18,6 @@
 
   <Import Project="Plugin.props" />
 
-  <PropertyGroup>
-    <WaveVersion>$(SdkVersion.Substring(2,2))$(SdkVersion.Substring(5,1)).0.0</WaveVersion>
-  </PropertyGroup>
-
   <ItemGroup>
     <Reference Include="System.Xaml" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />

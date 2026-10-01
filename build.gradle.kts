@@ -133,25 +133,6 @@ tasks.buildPlugin {
             from("${buildDir}/distributions/${rootProject.name}-${version}.zip")
             into("${rootDir}/output")
         }
-
-        // TODO: See also org.jetbrains.changelog: https://github.com/JetBrains/gradle-changelog-plugin
-        val changelogText = file("${rootDir}/CHANGELOG.md").readText()
-        val changelogMatches = Regex("(?s)(-.+?)(?=##|$)").findAll(changelogText)
-        val changeNotes = changelogMatches.map {
-            it.groups[1]!!.value.replace("(?s)- ".toRegex(), "\u2022 ").replace("`", "").replace(",", "%2C").replace(";", "%3B")
-        }.take(1).joinToString()
-
-        val executable: String by setBuildTool.get().extra
-        val arguments = (setBuildTool.get().extra["args"] as List<String>).toMutableList()
-        arguments.add("/t:Pack")
-        arguments.add("/p:PackageOutputPath=${rootDir}/output")
-        arguments.add("/p:PackageReleaseNotes=${changeNotes}")
-        arguments.add("/p:PackageVersion=${version}")
-        execOperations.exec {
-            executable(executable)
-            args(arguments)
-            workingDir(rootDir)
-        }
     }
 }
 
@@ -211,14 +192,6 @@ tasks.publishPlugin {
     dependsOn(testDotNet)
     dependsOn(tasks.buildPlugin)
     token.set("${PublishToken}")
-
-    doLast {
-        execOperations.exec {
-            executable("dotnet")
-            args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key","${PublishToken}","--source","https://plugins.jetbrains.com")
-            workingDir(rootDir)
-        }
-    }
 }
 
 val riderModel: Configuration by configurations.creating {

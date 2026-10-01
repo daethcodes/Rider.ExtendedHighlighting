@@ -4,7 +4,7 @@ using JetBrains.ReSharper.Feature.Services.Daemon.Attributes;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.TextControl.DocumentMarkup;
 
-namespace ReSharperPlugin.ExtendedHighlighting.QuestOperator;
+namespace ReSharperPlugin.ExtendedHighlighting;
 
 [StaticSeverityHighlighting(
     Severity.INFO,
@@ -12,15 +12,14 @@ namespace ReSharperPlugin.ExtendedHighlighting.QuestOperator;
     AttributeId = nameof(QuestTokenHighlighting),
     Languages = CSharpLanguage.Name,
     OverlapResolve = OverlapResolveKind.NONE)]
-[RegisterHighlighterGroup(
-    Constants.GroupId,
-    Constants.PresentableName,
-    HighlighterGroupPriority.LANGUAGE_SETTINGS,
-    Language = typeof(CSharpLanguage))]
 [RegisterHighlighter(
     nameof(QuestTokenHighlighting),
+    RiderPresentableName = "Single Question Mark",
     GroupId = Constants.GroupId,
     EffectType = EffectType.TEXT,
     FallbackAttributeId = DefaultLanguageAttributeIds.OPERATOR_SIGN,
     Layer = Constants.Layer)]
-public class QuestTokenHighlighting(DocumentRange range) : ExtendedHighlightingBase(range);
+public class QuestTokenHighlighting(DocumentRange range) : ExtendedHighlightingBase(range)
+{
+    public const string Tag = "q";
+}

@@ -4,7 +4,7 @@ using JetBrains.ReSharper.Feature.Services.Daemon.Attributes;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.TextControl.DocumentMarkup;
 
-namespace ReSharperPlugin.ExtendedHighlighting.QuestOperator;
+namespace ReSharperPlugin.ExtendedHighlighting.Highlightings;
 
 [StaticSeverityHighlighting(
     Severity.INFO,
@@ -14,8 +14,12 @@ namespace ReSharperPlugin.ExtendedHighlighting.QuestOperator;
     OverlapResolve = OverlapResolveKind.NONE)]
 [RegisterHighlighter(
     nameof(DoubleQuestTokenHighlighting),
+    RiderPresentableName = "Null-coalescing",
     GroupId = Constants.GroupId,
     EffectType = EffectType.TEXT,
     FallbackAttributeId = DefaultLanguageAttributeIds.OPERATOR_SIGN,
     Layer = Constants.Layer)]
-public class DoubleQuestTokenHighlighting(DocumentRange range) : ExtendedHighlightingBase(range);
+public class DoubleQuestTokenHighlighting(DocumentRange range) : ExtendedHighlightingBase(range)
+{
+    public const string Tag = "qqeq";
+}
