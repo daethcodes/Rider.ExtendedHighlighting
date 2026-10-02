@@ -24,7 +24,7 @@ The list of configurable symbols is:
 
 ### Development
 
-This project was bootstrapped using the 
+This project was generated using the
 [JetBrains ReSharper Rider plugin template](https://github.com/JetBrains/resharper-rider-plugin), but has been modified 
 to remove the standalone ReSharper build. 
 

@@ -7,17 +7,17 @@
     <depends>com.intellij.modules.rider</depends>
 
     <description><![CDATA[
-A Rider plugin that adds syntax highlighting for C# operators that Rider does not support by default.
+<p>A Rider plugin that adds syntax highlighting for C# operators that Rider does not support by default.
 
-These are treated as symbols without any checks for semantics i.e. a highlighting will apply to all uses of the symbol
-regardless of what it actually means in the code. 
+<p>These are treated as symbols without any checks for semantics i.e. a highlighting will apply to all uses of the symbol
+regardless of what it actually means in the code.</p>
 
-For example setting a highlighting for <code>!</code> will apply to <strong>all</strong> occurrences of <code>!</code>
-whether that be a negation operator or a null-forgiving operator.
+<p>For example setting a highlighting for <code>!</code> will apply to <strong>all</strong> occurrences of <code>!</code>
+whether that be a negation operator or a null-forgiving operator. <p>
 
-All highlightings default to the colour for operators from the user's current settings, but they can be individually set.
+<p>All highlightings default to the colour for operators from the user's current settings, but they can be individually set.</p>
 
-The list of configurable symbols is:
+<p>The list of configurable symbols is:</p>
 <ul>
   <li><code>?</code></li>
   <li><code>??</code></li>
