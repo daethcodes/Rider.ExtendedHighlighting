@@ -6,9 +6,8 @@ namespace ExtendedHighlighting;
 
 public class ExtendedHighlightingNamesProvider : IRiderHighlighterNamesProvider
 {
-    public string GetHighlighterTag(string attributeId)
-    {
-        return attributeId switch
+    public string GetHighlighterTag(string attributeId) =>
+        attributeId switch
         {
             nameof(QuestTokenHighlighting) => QuestTokenHighlighting.Tag,
             nameof(DoubleQuestTokenHighlighting) => DoubleQuestTokenHighlighting.Tag,
@@ -18,7 +17,6 @@ public class ExtendedHighlightingNamesProvider : IRiderHighlighterNamesProvider
             nameof(ColonTokenHighlighting) => ColonTokenHighlighting.Tag,
             _ => throw new ArgumentOutOfRangeException(nameof(attributeId), attributeId, null)
         };
-    }
 
     public string GetExternalName(string attributeId) => $"{Constants.GroupId}.{attributeId}";
 

@@ -1,40 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>net481</TargetFramework>
-        <LangVersion>Latest</LangVersion>
-        <AssemblyName>ExtendedHighlighting</AssemblyName>
-        <RootNamespace>$(AssemblyName)</RootNamespace>
-        <DefineConstants>$(DefineConstants);RIDER</DefineConstants>
-        <IsPackable>false</IsPackable>
-        <DefaultItemExcludes>$(DefaultItemExcludes);obj\**</DefaultItemExcludes>
-        <OutputPath>bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
-        <NoWarn>MSB3277</NoWarn>
-        <NoPackageAnalysis>true</NoPackageAnalysis>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-        <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net481</TargetFramework>
+    <LangVersion>Latest</LangVersion>
+    <AssemblyName>ExtendedHighlighting</AssemblyName>
+    <RootNamespace>$(AssemblyName)</RootNamespace>
+    <DefineConstants>$(DefineConstants);RIDER</DefineConstants>
+    <IsPackable>false</IsPackable>
+    <DefaultItemExcludes>$(DefaultItemExcludes);obj\**</DefaultItemExcludes>
+    <OutputPath>bin\$(MSBuildProjectName)\$(Configuration)\</OutputPath>
+    <NoWarn>MSB3277</NoWarn>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+  </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-        <DefineConstants>$(DefineConstants);TRACE;DEBUG;JET_MODE_ASSERT</DefineConstants>
-    </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>$(DefineConstants);TRACE;DEBUG;JET_MODE_ASSERT</DefineConstants>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <Reference Include="System.Xaml"/>
-        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All"/>
-    </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Xaml"/>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>
 
-    <ItemGroup>
-        <!-- Keep in sync with ProductVersion in gradle.properties -->
-        <PackageReference Include="JetBrains.Rider.SDK" Version="2026.2.3"/>
-    </ItemGroup>
+  <ItemGroup>
+    <!-- Keep in sync with ProductVersion in gradle.properties -->
+    <PackageReference Include="JetBrains.Rider.SDK" Version="2026.2.3"/>
+  </ItemGroup>
 
-    <ItemGroup>
-        <EmbeddedResource Include="*.DotSettings"/>
-    </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="*.DotSettings"/>
+  </ItemGroup>
 
-    <ItemDefinitionGroup>
-        <EmbeddedResource>
-            <Generator>JetResourceGenerator</Generator>
-        </EmbeddedResource>
-    </ItemDefinitionGroup>
+  <ItemDefinitionGroup>
+    <EmbeddedResource>
+      <Generator>JetResourceGenerator</Generator>
+    </EmbeddedResource>
+  </ItemDefinitionGroup>
 </Project>

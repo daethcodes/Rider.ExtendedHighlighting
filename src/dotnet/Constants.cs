@@ -17,7 +17,7 @@ public static class Constants
         foo = null<{Tags.Excl}>!</{Tags.Excl}>;
         foo = (bar) <{Tags.Lambda}>=></{Tags.Lambda}> 1;
         """;
-    
+
     private static class Tags
     {
         public const string Question = QuestTokenHighlighting.Tag;
